@@ -1,5 +1,6 @@
 package com.passwordgeneratorapi.service;
 
+import com.passwordgeneratorapi.domain.password.ListPasswordPaginatedResponseDTO;
 import com.passwordgeneratorapi.domain.password.Password;
 import com.passwordgeneratorapi.domain.password.PasswordRequestDTO;
 import com.passwordgeneratorapi.domain.password.PasswordResponseDTO;
@@ -35,7 +36,7 @@ public class PasswordService {
         return randomPassword;
     }
 
-    public PasswordResponseDTO.ListPasswordPaginatedResponseDTO listPasswords(int page) {
+    public ListPasswordPaginatedResponseDTO listPasswords(int page) {
         int pageSize = 10;
         Pageable pageable = PageRequest.of(page, pageSize);
         Page<Password> passwordsPage = this.repository.findAll(pageable);
@@ -45,7 +46,7 @@ public class PasswordService {
                 password.getPassword(),
                 password.getCreatedAt())).stream().toList();
 
-        return PasswordResponseDTO.listPasswordPaginated(passwords, passwordsPage.getTotalElements());
+        return new ListPasswordPaginatedResponseDTO(passwords, passwordsPage.getTotalElements());
     }
 
     private String generateRandomPassword(Boolean useUpperCaseLetters, Boolean useLowerCaseLetters, Boolean useNumbers,

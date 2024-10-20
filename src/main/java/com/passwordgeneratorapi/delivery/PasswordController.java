@@ -1,5 +1,6 @@
 package com.passwordgeneratorapi.delivery;
 
+import com.passwordgeneratorapi.domain.password.ListPasswordPaginatedResponseDTO;
 import com.passwordgeneratorapi.domain.password.PasswordRequestDTO;
 import com.passwordgeneratorapi.domain.password.PasswordResponseDTO;
 import com.passwordgeneratorapi.service.PasswordService;
@@ -34,8 +35,8 @@ public class PasswordController {
 
     @RequestMapping("/api/password-history")
     @GetMapping
-    public ResponseEntity<PasswordResponseDTO.ListPasswordPaginatedResponseDTO> listPasswords(@RequestParam() int page){
-        PasswordResponseDTO.ListPasswordPaginatedResponseDTO response = this.passwordService.listPasswords(page);
+    public ResponseEntity<ListPasswordPaginatedResponseDTO> listPasswords(@RequestParam() int page){
+        ListPasswordPaginatedResponseDTO response = this.passwordService.listPasswords(page);
 
         return ResponseEntity.ok(response);
     }
